@@ -1,0 +1,41 @@
+# Ignore VS Code settings
+.vscode/
+*.code-workspace
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore build outputs
+*.exe
+*.out
+*.o
+*.obj
+
+# Ignore compiled binary or cache files
+*.log
+*.tmp
+*.class
+*.pch
+
+# Ignore CMake cache and build directories
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+build/
+
+# Visual Studio folders and settings
+.vs/
+*.sln
+*.vcxproj*
+*.sqlite
+
+# Ignore all Visual Studio folders and files
+.vs/
+.vs/**
+
+# Ignore build output, solution files, and project files
+*.sln
+*.vcxproj*
+*.sqlite
