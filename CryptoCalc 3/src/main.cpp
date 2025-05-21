@@ -1,12 +1,13 @@
 #include "CryptoCalculator.hpp"
-#include <iostream>
+#include "FileHandler.hpp"
+#include "RandomMarketSimulator.hpp"
+#include <memory>
 
-int main(int argc, char **argv) {
-    if (argc != 3) {
-        std::cerr << "Usage: crypto_calc <prices.csv> <transactions.csv>\n";
-        return 1;
-    }
-    CryptoCalculator app(argv[1], argv[2]);
+int main() {
+    auto handler = std::make_unique<FileHandler>();
+    auto sim     = std::make_unique<RandomMarketSimulator>(5.0);
+
+    CryptoCalculator app(std::move(handler), std::move(sim));
     app.run();
     return 0;
 }
