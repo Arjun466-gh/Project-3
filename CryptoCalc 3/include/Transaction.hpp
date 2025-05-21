@@ -1,15 +1,27 @@
 #pragma once
+
 #include <string>
-#include <chrono>
+#include <iostream>
 
-enum class TxType { BUY, SELL };
+enum class TransactionType { BUY = 0, SELL = 1 };
 
-struct Transaction {
-    std::chrono::system_clock::time_point timestamp;
-    std::string symbol;
-    TxType type;
-    double amount;
+class Transaction {
+public:
+    Transaction(const std::string& coin,
+                int quantity,
+                double pricePerCoin,
+                TransactionType type);
 
-    //CSV line: "YYYY-MM-DD,TYPE,SYMBOL,AMOUNT"
-    static Transaction fromCsv(const std::string &line);
+    std::string getCoin() const;
+    int getQuantity() const;
+    double getPricePerCoin() const;
+    TransactionType getType() const;
+
+    void print() const;
+
+private:
+    std::string coin_;
+    int quantity_;
+    double pricePerCoin_;
+    TransactionType type_;
 };
