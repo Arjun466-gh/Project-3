@@ -1,4 +1,6 @@
 #include "Transaction.hpp"
+#include <iostream>
+#include <iomanip>
 
 Transaction::Transaction(const std::string& coin,
                          int quantity,
@@ -16,9 +18,10 @@ double      Transaction::getPricePerCoin() const { return pricePerCoin_; }
 TransactionType Transaction::getType() const { return type_; }
 
 void Transaction::print() const {
-    std::cout
-      << (type_ == TransactionType::BUY ? "BUY  " : "SELL ")
-      << quantity_ << "×" << coin_
-      << " @ $" << pricePerCoin_
-      << std::endl;
+    // use ASCII 'x' and two-decimal fixed formatting
+    std::cout << std::fixed << std::setprecision(2)
+              << (type_ == TransactionType::BUY ? "BUY  " : "SELL ")
+              << quantity_ << 'x' << coin_
+              << " @ $" << pricePerCoin_
+              << std::endl;
 }
