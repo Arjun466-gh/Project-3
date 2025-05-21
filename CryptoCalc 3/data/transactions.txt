@@ -1,2 +1,4 @@
-2025-01-01,BUY,BTC,0.005
-2025-01-03,SELL,ETH,0.10
+Bitcoin  1 65000 0
+Ethereum 2  3200 0
+Litecoin 5   190 0
+Dogecoin 1000 0.085 0
