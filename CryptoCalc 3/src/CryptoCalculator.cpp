@@ -1,5 +1,6 @@
 #include "CryptoCalculator.hpp"
 #include <iostream>
+#include <iomanip>
 
 CryptoCalculator::CryptoCalculator(
     std::unique_ptr<IFileHandler> handler,
@@ -20,21 +21,26 @@ void CryptoCalculator::run() {
         std::cout << "Save as binary? (y/n): ";
         std::cin  >> resp;
         if (resp=='y'||resp=='Y') {
-          std::cout<<"Binary filename: "; std::cin>>bin;
-          handler_->saveBinary(bin, txs_);
+            std::cout << "Binary filename: ";
+            std::cin  >> bin;
+            handler_->saveBinary(bin, txs_);
         }
 
         std::cout << "Reload from binary? (y/n): ";
         std::cin  >> resp;
         if (resp=='y'||resp=='Y') {
-          txs_.clear();
-          std::cout<<"Binary filename: "; std::cin>>bin;
-          loadTx(bin, true);
+            txs_.clear();
+            std::cout << "Binary filename: ";
+            std::cin  >> bin;
+            loadTx(bin, true);
         }
 
-        int days; double init;
-        std::cout << "Days to simulate: "; std::cin >> days;
-        std::cout << "Initial price:   "; std::cin >> init;
+        int days;
+        double init;
+        std::cout << "Days to simulate: ";
+        std::cin  >> days;
+        std::cout << "Initial price:   ";
+        std::cin  >> init;
         simulate(days, init);
 
         computePnL();
@@ -62,18 +68,26 @@ void CryptoCalculator::computePnL() {
     netPnl_ = 0.0;
     if (prices_.empty()) return;
     double p = prices_[0];
-    for (auto& tx : txs_) {
-        double val = tx->getQuantity() * p;
-        netPnl_ += (tx->getType() == TransactionType::SELL ? val : -val);
+    for (const auto& tx : txs_) {
+        double value = tx->getQuantity() * p;
+        if (tx->getType() == TransactionType::SELL)
+            netPnl_ += value;
+        else
+            netPnl_ -= value;
     }
 }
 
 void CryptoCalculator::display() const {
+    // set fixed two-decimal formatting for all output
+    std::cout << std::fixed << std::setprecision(2);
+
     std::cout << "\n--- Transactions ---\n";
-    for (auto& tx : txs_) tx->print();
+    for (const auto& tx : txs_)
+        tx->print();
 
     std::cout << "\n--- Simulated Prices ---\n";
-    for (double d : prices_) std::cout << d << "\n";
+    for (double d : prices_)
+        std::cout << d << "\n";
 
     std::cout << "\nNet P/L: $" << netPnl_ << "\n";
 }
