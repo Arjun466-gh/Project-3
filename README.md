@@ -51,7 +51,6 @@ CryptoCalc is a tool that builds on the original CryptoCalc from Project 1 by re
 Watch the project walkthrough on YouTube: https://youtu.be/mzV04nnS3P0 
 
 
-
 #  Build & Test Instructions
 
 ## Prerequisites
